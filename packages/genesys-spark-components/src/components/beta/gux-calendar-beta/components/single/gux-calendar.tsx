@@ -316,34 +316,43 @@ export class GuxCalendar {
                 <div class="gux-content-week">
                   {week.dates.map(
                     day =>
-                      (
-                        <div
-                          data-date={day.date.getTime()}
-                          onClick={() => this.onDateClick(day.date)}
-                          role="button"
-                          aria-current={day.selected ? 'true' : 'false'}
-                          tabindex={day.selected || day.focused ? '0' : '-1'}
-                          onKeyDown={e => void this.onKeyDown(e)}
-                          aria-disabled={day.disabled ? 'true' : 'false'}
-                          class={{
-                            'gux-content-date': true,
-                            'gux-disabled': day.disabled,
-                            'gux-current-month': day.inCurrentMonth,
-                            'gux-selected': day.selected,
-                            'gux-current-date': day.isCurrentDate
-                          }}
-                        >
-                          <span class="gux-non-sr" aria-hidden="true">
-                            {day.date.getDate()}
-                          </span>
-                          <span class="gux-sr-only">
-                            <gux-date-beta
-                              datetime={day.date.toISOString()}
-                              format="long"
-                            ></gux-date-beta>
-                          </span>
-                        </div>
+                    {
+                      const isoDateStr = asIsoDate(day.date);
+                      return (
+                        <slot key={isoDateStr} name={isoDateStr}>
+                          <gux-day 
+                            aria-disabled={day.disabled ? 'true' : 'false'} 
+                            day={isoDateStr}>
+                          </gux-day>
+                        </slot>
+                        // <div
+                        //   data-date={day.date.getTime()}
+                        //   onClick={() => this.onDateClick(day.date)}
+                        //   role="button"
+                        //   aria-current={day.selected ? 'true' : 'false'}
+                        //   tabindex={day.selected || day.focused ? '0' : '-1'}
+                        //   onKeyDown={e => void this.onKeyDown(e)}
+                        //   aria-disabled={day.disabled ? 'true' : 'false'}
+                        //   class={{
+                        //     'gux-content-date': true,
+                        //     'gux-disabled': day.disabled,
+                        //     'gux-current-month': day.inCurrentMonth,
+                        //     'gux-selected': day.selected,
+                        //     'gux-current-date': day.isCurrentDate
+                        //   }}
+                        // >
+                        //   <span class="gux-non-sr" aria-hidden="true">
+                        //     {day.date.getDate()}
+                        //   </span>
+                        //   <span class="gux-sr-only">
+                        //     <gux-date-beta
+                        //       datetime={day.date.toISOString()}
+                        //       format="long"
+                        //     ></gux-date-beta>
+                        //   </span>
+                        // </div>
                       ) as JSX.Element
+                    }
                   )}
                 </div>
               ) as JSX.Element

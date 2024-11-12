@@ -1,0 +1,38 @@
+@use '~genesys-spark/dist/scss/mixins.scss';
+
+:host {
+    display: inline-block;
+    width: var(--gse-ui-calendarMenu-day-date-size);
+    height: var(--gse-ui-calendarMenu-day-input-height);
+    font-family: var(--gse-ui-calendarMenu-date-currentText-fontFamily);
+    font-size: var(--gse-ui-calendarMenu-date-defaultText-fontSize);
+    font-style: normal;
+    font-weight: var(--gse-ui-calendarMenu-date-defaultText-fontWeight);
+    line-height: 32px;
+    text-align: center;
+    vertical-align: middle;
+    border: none;
+    outline: none;
+    border-radius: var(--gse-ui-calendarMenu-month-borderRadius);
+
+    &:hover {
+        background-color: var(--gse-ui-calendarMenu-date-hover-backgroundColor);
+    }
+
+    &:focus-visible {
+        border-radius: var(--gse-ui-calendarMenu-month-focusBorderRadius);
+        outline: var(
+            --gse-semantic-focusRing-default-border-width,
+            var(--gse-semantic-focusOutline-md-borderWidth)
+            )
+            solid
+            var(
+            --gse-semantic-focusRing-default-border-color,
+            var(--gse-semantic-border-focus)
+            );
+    }
+
+    &[aria-disabled="true"] {
+        opacity: var(--gse-ui-calendarMenu-disabled-opacity);
+    }
+}
