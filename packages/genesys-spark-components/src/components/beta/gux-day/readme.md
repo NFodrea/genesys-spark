@@ -9,7 +9,7 @@
 
 | Property | Attribute | Description | Type     | Default     |
 | -------- | --------- | ----------- | -------- | ----------- |
-| `date`   | --        |             | `String` | `undefined` |
+| `day`    | `day`     |             | `string` | `undefined` |
 
 
 ## Dependencies
