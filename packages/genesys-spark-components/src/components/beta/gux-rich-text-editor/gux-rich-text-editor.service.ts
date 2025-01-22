@@ -42,3 +42,55 @@ export function returnActionTypeIcon(
       return 'fa/bold-regular';
   }
 }
+
+export function getActionsFromGroups(
+  selector: string,
+  hiddenClass: string
+): string[] {
+  const actionGroup = this.root.querySelector(selector);
+
+  if (actionGroup && actionGroup.classList.contains(hiddenClass)) {
+    return Array.from(
+      actionGroup.querySelectorAll('gux-rich-text-editor-action')
+    ).map(actionElement =>
+      (actionElement as HTMLGuxRichTextEditorActionElement).getAttribute(
+        'action'
+      )
+    );
+  }
+
+  return [];
+}
+
+export function getActionsFromGroup(
+  root: HTMLElement,
+  selector: string,
+  hiddenClass: string
+): string[] {
+  const actionGroup = root.querySelector(selector);
+  const actions = [];
+
+  if (actionGroup && actionGroup.classList.contains(hiddenClass)) {
+    const children = actionGroup.children;
+    Array.from(children).forEach(child => {
+      if (child.tagName === 'GUX-RICH-TEXT-EDITOR-ACTION') {
+        const action = (child as HTMLElement).getAttribute('action');
+        if (action) {
+          actions.push(action);
+        }
+      } else if (child.tagName === 'GUX-RICH-TEXT-EDITOR-ACTION-RICH-STYLE') {
+        const styleListItems = child.querySelectorAll(
+          'gux-rich-style-list-item'
+        );
+        styleListItems.forEach(item => {
+          const value = (item as HTMLElement).getAttribute('value');
+          if (value) {
+            actions.push(value);
+          }
+        });
+      }
+    });
+  }
+
+  return actions;
+}

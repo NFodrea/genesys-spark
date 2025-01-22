@@ -1,5 +1,18 @@
-import { Component, h, JSX, Element, Prop } from '@stencil/core';
+import {
+  Component,
+  h,
+  JSX,
+  Element,
+  Prop,
+  readTask,
+  State
+} from '@stencil/core';
+import { OnResize } from '@utils/decorator/on-resize';
+import { afterNextRenderTimeout } from '@utils/dom/after-next-render';
 import { hasSlot } from '@utils/dom/has-slot';
+import { capitalizeFirstLetter } from '@utils/string/capitalize-first-letter';
+import { trackComponent } from '@utils/tracking/usage';
+import { getActionsFromGroup } from './gux-rich-text-editor.service';
 
 /**
  * @slot typographical-emphasis - Slot for typographical actions.
@@ -21,6 +34,127 @@ export class GuxRichTextEditor {
 
   @Prop()
   disabled: boolean = false;
+
+  @State()
+  typographicalEmphasisActions: string[] = [];
+
+  @State()
+  textStylingActions: string[] = [];
+
+  @State()
+  listsAndIndentationActions: string[] = [];
+
+  @OnResize()
+  checkResponsiveLayout(): void {
+    readTask(() => {
+      this.handleOverflow();
+    });
+  }
+
+  componentDidLoad(): void {
+    // This timeout is required to calculate the correct size of the containers when the component loads.
+    afterNextRenderTimeout(() => {
+      this.handleOverflow();
+      this.getHiddenActions();
+    });
+  }
+
+  componentDidUpdate(): void {
+    this.handleOverflow();
+  }
+
+  componentWillRender(): void {
+    trackComponent(this.root);
+  }
+
+  private isOverFlowing(): boolean {
+    const container = this.root?.shadowRoot.querySelector(
+      '.gux-rich-text-editor-toolbar-container'
+    );
+    // A group of gux-rich-text-editor-action-group.
+    const children = Array.from(container.children);
+    // Calculate the total width of all children excluding hidden.(gux-rich-text-editor-action-group)
+    const totalWidth = children
+      .filter(child => !child.classList.contains('gux-hidden'))
+      .reduce((sum, child) => sum + child.clientWidth, 0);
+
+    return totalWidth > container.clientWidth;
+  }
+
+  private handleOverflow(): void {
+    const actionGroups = Array.from(
+      this.root.querySelectorAll('gux-rich-text-editor-action-group')
+    );
+
+    // Hide last visible action group until there's no overflow.
+    while (this.isOverFlowing()) {
+      let hidden = false;
+      for (let i = actionGroups.length - 1; i >= 0; i--) {
+        if (!actionGroups[i].classList.contains('gux-hidden')) {
+          actionGroups[i].classList.add('gux-hidden');
+          hidden = true;
+          break;
+        }
+      }
+      // If no more action groups to hide, exit loop
+      if (!hidden) {
+        break;
+      }
+    }
+
+    // Show previously hidden groups if space is available
+    for (const group of actionGroups) {
+      if (group.classList.contains('gux-hidden')) {
+        group.classList.remove('gux-hidden');
+
+        // If it causes overflow again, re-hide the group and stop the loop
+        if (this.isOverFlowing()) {
+          group.classList.add('gux-hidden');
+          break;
+        }
+      }
+    }
+  }
+  private getHiddenActions(): void {
+    this.typographicalEmphasisActions = getActionsFromGroup(
+      this.root,
+      'gux-rich-text-editor-action-group[slot="typographical-emphasis"]',
+      'gux-hidden'
+    );
+
+    this.listsAndIndentationActions = getActionsFromGroup(
+      this.root,
+      'gux-rich-text-editor-action-group[slot="lists-indentation"]',
+      'gux-hidden'
+    );
+
+    this.textStylingActions = getActionsFromGroup(
+      this.root,
+      'gux-rich-text-editor-action-group[slot="text-styling"]',
+      'gux-hidden'
+    );
+  }
+
+  private renderTextEditorMenu(): JSX.Element {
+    // Merge the action groups into one array.
+    const allActions = [
+      ...this.textStylingActions.map(actionItem => actionItem),
+      ...this.typographicalEmphasisActions.map(actionElement => actionElement),
+      ...this.listsAndIndentationActions.map(actionElement => actionElement)
+    ];
+
+    return (
+      <gux-rich-text-editor-action-rich-style value="menu" is-menu="true">
+        {allActions.map((action, index) => {
+          return (
+            <gux-rich-style-list-item key={index} value={action}>
+              {capitalizeFirstLetter(action)}
+            </gux-rich-style-list-item>
+          );
+        })}
+      </gux-rich-text-editor-action-rich-style>
+    ) as JSX.Element;
+  }
 
   private renderSlot(
     slotName: string,
@@ -75,6 +209,7 @@ export class GuxRichTextEditor {
           {this.renderTextStyling()}
           {this.renderListsIndentation()}
           {this.renderInserting()}
+          {this.renderTextEditorMenu()}
           {this.renderGlobalAction()}
         </div>
         <slot name="editor"></slot>
