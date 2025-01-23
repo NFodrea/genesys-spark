@@ -483,5 +483,38 @@
       "value": "{foreground.container.high_emphasis}",
       "type": "color"
     }
+  },
+  "status_indicator": {
+    "indicator-container": {
+      "gap": {
+        "value": "{form_control.field.click_input.gap}",
+        "type": "spacing"
+      }
+    },
+    "padding": {
+      "value": "{interactive.sm.padding} {interactive.md.padding}",
+      "type": "spacing",
+      "description": "padding for status indicators"
+    },
+    "border_radius": {
+      "value": "{interactive.sm.border_radius}",
+      "type": "borderRadius"
+    },
+    "default": {
+      "value": "{foreground.interactive.primary.default}",
+      "type": "color"
+    },
+    "hover": {
+      "value": "{background.interactive.secondary.active}",
+      "type": "color"
+    },
+    "text": {
+      "value": "{foreground.form_control.label.default}",
+      "type": "color"
+    },
+    "label": {
+      "value": "{body.sm.regular}",
+      "type": "typography"
+    }
   }
 }
