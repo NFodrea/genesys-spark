@@ -379,6 +379,114 @@
           "type": "spacing"
         }
       }
+    },
+    "inline_dropdown": {
+      "padding": {
+        "value": "{interactive.sm.padding} {interactive.md.padding}",
+        "type": "spacing"
+      },
+      "gap": {
+        "value": "{interactive.xl.gap}",
+        "type": "spacing"
+      },
+      "text": {
+        "value": "{foreground.form_control.label.default}",
+        "type": "color"
+      },
+      "hover": {
+        "value": "{background.interactive.secondary.hover}",
+        "type": "color"
+      },
+      "active": {
+        "value": "{background.interactive.secondary.active}",
+        "type": "color"
+      },
+      "border_radius": {
+        "value": "{interactive.sm.border_radius}",
+        "type": "borderRadius"
+      },
+      "table_dropdown_cell": {
+        "padding": {
+          "value": "{container.xs.padding} {container.sm.padding}",
+          "type": "spacing"
+        },
+        "gap": {
+          "value": "{container.sm.gap}",
+          "type": "spacing"
+        },
+        "label": {
+          "default": {
+            "value": "{body.sm.regular}",
+            "type": "typography"
+          },
+          "selected": {
+            "value": "{body.sm.bold}",
+            "type": "typography"
+          }
+        },
+        "hover": {
+          "value": "{background.container.elevated.hover}",
+          "type": "color"
+        },
+        "active": {
+          "value": "{background.container.elevated.active}",
+          "type": "color"
+        }
+      },
+      "table_dropdown_menu": {
+        "padding": {
+          "value": "{interactive.sm.padding} 0",
+          "type": "spacing"
+        },
+        "border": {
+          "value": {
+            "color": "{border.container.edges.default}",
+            "width": "{border_width.1}",
+            "style": ""
+          },
+          "type": "border"
+        }
+      },
+      "label": {
+        "value": "{body.sm.regular}",
+        "type": "typography"
+      },
+      "chevron": {
+        "hover": {
+          "value": "{foreground.interactive.ghost.hover}",
+          "type": "color"
+        },
+        "active": {
+          "value": "{foreground.interactive.ghost.active}",
+          "type": "color"
+        }
+      }
+    },
+    "status_indicator": {
+      "padding": {
+        "value": "{interactive.sm.padding} {interactive.md.padding}",
+        "type": "spacing"
+      },
+      "gap": {
+        "value": "{interactive.lg.gap}",
+        "type": "spacing"
+      },
+      "hover": {
+        "value": "{background.interactive.secondary.active}",
+        "type": "color"
+      },
+      "border_radius": {
+        "value": "{interactive.sm.border_radius}",
+        "type": "borderRadius"
+      },
+      "label": {
+        "value": "{body.sm.regular}",
+        "type": "typography"
+      },
+      "text": {
+        "value": "{foreground.form_control.label.default}",
+        "type": "color"
+      }
     }
   },
   "avatar": {
