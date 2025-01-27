@@ -449,6 +449,14 @@
         "default": {
           "value": "{background.interactive.subtle.default}",
           "type": "color"
+        },
+        "edges": {
+          "value": "{border.container.edges.default}",
+          "type": "color"
+        },
+        "box_border": {
+          "value": "{elevation.low}",
+          "type": "boxShadow"
         }
       },
       "label": {
