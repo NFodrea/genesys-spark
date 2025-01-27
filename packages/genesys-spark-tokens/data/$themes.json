@@ -1616,7 +1616,8 @@
       "data_table_items.inline_dropdown.table_dropdown_cell.label.default": "S:44a34bba6e1f7b2980538922cbd8a8bf029c60f6,",
       "data_table_items.status_indicator.label": "S:0b3dc36ac601d516a1aa821cb3a61d624c68bf8d,",
       "data_table_items.inline_dropdown.table_dropdown_cell.label.selected": "S:803332465aa4b68a877526bddd6d2fa5dbf11a5a,",
-      "data_table_items.inline_dropdown.label": "S:516bf158e120139519b027cd66ae4c1f0fd365da,"
+      "data_table_items.inline_dropdown.label": "S:516bf158e120139519b027cd66ae4c1f0fd365da,",
+      "data_table_items.inline_dropdown.table_dropdown_menu.box_border": "S:d26a31a422a641a8fbaa5eaacbd12f5c96c4dc55,"
     },
     "selectedTokenSets": {
       "ui/unordered": "enabled",
@@ -2279,6 +2280,7 @@
       "data_table_composed.width": "62c1b80dd2016256f91f6113ba5877ff53d1d7d4",
       "data_table_items.inline_dropdown.table_dropdown_cell.default": "64aea893a200bb2a29823510e6c272a5a0245602",
       "data_table_items.inline_dropdown.table_dropdown_menu.default": "3c9bed349b7b094223d5e211a9f02fcb6417bb3b",
+      "data_table_items.inline_dropdown.table_dropdown_menu.edges": "64f53876e68afe02216c2ff700ba4af909b4260c",
       "accordion.header.height": "e3ce5d6473c9b53875943cb5ad5ab2f55ec051cf",
       "accordion.header.chevron_icon": "9210c804ead39c136531bdeeef2a93bb2d7352ed",
       "accordion.header.gap": "e503c99ddf531102a95bb967c22f39878c83a19f",
