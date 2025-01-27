@@ -381,10 +381,6 @@
       }
     },
     "inline_dropdown": {
-      "padding": {
-        "value": "{interactive.sm.padding} {interactive.md.padding}",
-        "type": "spacing"
-      },
       "gap": {
         "value": "{interactive.xl.gap}",
         "type": "spacing"
@@ -431,6 +427,10 @@
         "active": {
           "value": "{background.container.elevated.active}",
           "type": "color"
+        },
+        "default": {
+          "value": "{background.interactive.subtle.default}",
+          "type": "color"
         }
       },
       "table_dropdown_menu": {
@@ -445,6 +445,10 @@
             "style": ""
           },
           "type": "border"
+        },
+        "default": {
+          "value": "{background.interactive.subtle.default}",
+          "type": "color"
         }
       },
       "label": {
@@ -463,10 +467,6 @@
       }
     },
     "status_indicator": {
-      "padding": {
-        "value": "{interactive.sm.padding} {interactive.md.padding}",
-        "type": "spacing"
-      },
       "gap": {
         "value": "{interactive.lg.gap}",
         "type": "spacing"
