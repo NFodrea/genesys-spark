@@ -88,6 +88,18 @@ export function getActionsFromGroup(
             actions.push(value);
           }
         });
+      } else if (
+        child.tagName === 'GUX-RICH-TEXT-EDITOR-ACTION-TEXT-HIGHLIGHT'
+      ) {
+        const textHighlightListItems = child.querySelectorAll(
+          'gux-rich-highlight-list-item'
+        );
+        textHighlightListItems.forEach(item => {
+          const highlight = (item as HTMLElement).getAttribute('highlight');
+          if (highlight) {
+            actions.push(highlight);
+          }
+        });
       }
     });
   }

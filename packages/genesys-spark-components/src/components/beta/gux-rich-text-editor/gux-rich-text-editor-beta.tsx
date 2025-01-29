@@ -8,7 +8,6 @@ import {
   State
 } from '@stencil/core';
 import { OnResize } from '@utils/decorator/on-resize';
-import { afterNextRenderTimeout } from '@utils/dom/after-next-render';
 import { hasSlot } from '@utils/dom/has-slot';
 import { capitalizeFirstLetter } from '@utils/string/capitalize-first-letter';
 import { trackComponent } from '@utils/tracking/usage';
@@ -44,19 +43,19 @@ export class GuxRichTextEditor {
   @State()
   listsAndIndentationActions: string[] = [];
 
+  @State()
+  insertingActions: string[] = [];
+
   @OnResize()
   checkResponsiveLayout(): void {
     readTask(() => {
       this.handleOverflow();
+      this.getHiddenActions();
     });
   }
 
   componentDidLoad(): void {
-    // This timeout is required to calculate the correct size of the containers when the component loads.
-    afterNextRenderTimeout(() => {
-      this.handleOverflow();
-      this.getHiddenActions();
-    });
+    this.checkResponsiveLayout();
   }
 
   componentDidUpdate(): void {
@@ -133,6 +132,12 @@ export class GuxRichTextEditor {
       'gux-rich-text-editor-action-group[slot="text-styling"]',
       'gux-hidden'
     );
+
+    this.insertingActions = getActionsFromGroup(
+      this.root,
+      'gux-rich-text-editor-action-group[slot="inserting"]',
+      'gux-hidden'
+    );
   }
 
   private renderTextEditorMenu(): JSX.Element {
@@ -140,20 +145,23 @@ export class GuxRichTextEditor {
     const allActions = [
       ...this.textStylingActions.map(actionItem => actionItem),
       ...this.typographicalEmphasisActions.map(actionElement => actionElement),
-      ...this.listsAndIndentationActions.map(actionElement => actionElement)
+      ...this.listsAndIndentationActions.map(actionElement => actionElement),
+      ...this.insertingActions.map(actionElement => actionElement)
     ];
 
-    return (
-      <gux-rich-text-editor-action-rich-style value="menu" is-menu="true">
-        {allActions.map((action, index) => {
-          return (
-            <gux-rich-style-list-item key={index} value={action}>
-              {capitalizeFirstLetter(action)}
-            </gux-rich-style-list-item>
-          );
-        })}
-      </gux-rich-text-editor-action-rich-style>
-    ) as JSX.Element;
+    if (allActions.length > 0) {
+      return (
+        <gux-rich-text-editor-action-rich-style value="menu" is-menu="true">
+          {allActions.map((action, index) => {
+            return (
+              <gux-rich-style-list-item key={index} value={action}>
+                {capitalizeFirstLetter(action)}
+              </gux-rich-style-list-item>
+            );
+          })}
+        </gux-rich-text-editor-action-rich-style>
+      ) as JSX.Element;
+    }
   }
 
   private renderSlot(
