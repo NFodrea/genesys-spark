@@ -13,6 +13,19 @@
 | `value`    | `value`    |             | `string`  | `undefined` |
 
 
+## Methods
+
+### `guxFocus() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
 ## Slots
 
 | Slot | Description |

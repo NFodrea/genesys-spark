@@ -83,9 +83,9 @@ export function getActionsFromGroup(
           'gux-rich-style-list-item'
         );
         styleListItems.forEach(item => {
-          const value = (item as HTMLElement).getAttribute('value');
+          const value = (item as HTMLElement).innerText;
           if (value) {
-            actions.push(value);
+            actions.push(`rich-style-${value}`);
           }
         });
       } else if (

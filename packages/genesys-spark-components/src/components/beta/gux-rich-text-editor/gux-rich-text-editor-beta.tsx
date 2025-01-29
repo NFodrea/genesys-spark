@@ -9,9 +9,10 @@ import {
 } from '@stencil/core';
 import { OnResize } from '@utils/decorator/on-resize';
 import { hasSlot } from '@utils/dom/has-slot';
-import { capitalizeFirstLetter } from '@utils/string/capitalize-first-letter';
 import { trackComponent } from '@utils/tracking/usage';
 import { getActionsFromGroup } from './gux-rich-text-editor.service';
+import { buildI18nForComponent, GetI18nValue } from 'i18n';
+import translationResources from './gux-rich-text-editor-action/i18n/en.json';
 
 /**
  * @slot typographical-emphasis - Slot for typographical actions.
@@ -28,6 +29,8 @@ import { getActionsFromGroup } from './gux-rich-text-editor.service';
   shadow: true
 })
 export class GuxRichTextEditor {
+  private i18n: GetI18nValue;
+
   @Element()
   root: HTMLElement;
 
@@ -54,16 +57,17 @@ export class GuxRichTextEditor {
     });
   }
 
+  async componentWillLoad(): Promise<void> {
+    trackComponent(this.root);
+    this.i18n = await buildI18nForComponent(this.root, translationResources);
+  }
+
   componentDidLoad(): void {
     this.checkResponsiveLayout();
   }
 
   componentDidUpdate(): void {
     this.handleOverflow();
-  }
-
-  componentWillRender(): void {
-    trackComponent(this.root);
   }
 
   private isOverFlowing(): boolean {
@@ -149,16 +153,32 @@ export class GuxRichTextEditor {
       ...this.insertingActions.map(actionElement => actionElement)
     ];
 
+    // Extract the rich style actions from the allActions array.
+    const richStyleActions = allActions
+      .filter(action => action.startsWith('rich-style-'))
+      .map(action => action.slice('rich-style-'.length));
+
     if (allActions.length > 0) {
       return (
         <gux-rich-text-editor-action-rich-style value="menu" is-menu="true">
           {allActions.map((action, index) => {
             return (
               <gux-rich-style-list-item key={index} value={action}>
-                {capitalizeFirstLetter(action)}
+                {this.i18n(action) || action}
               </gux-rich-style-list-item>
             );
           })}
+          {richStyleActions.length > 0 && (
+            <gux-rich-text-editor-sub-list label={this.i18n('richStyle')}>
+              {richStyleActions.map((action, index) => {
+                return (
+                  <gux-rich-style-list-item key={index} value={action}>
+                    {action}
+                  </gux-rich-style-list-item>
+                );
+              })}
+            </gux-rich-text-editor-sub-list>
+          )}
         </gux-rich-text-editor-action-rich-style>
       ) as JSX.Element;
     }
