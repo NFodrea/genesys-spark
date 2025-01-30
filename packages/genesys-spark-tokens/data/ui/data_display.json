@@ -108,7 +108,7 @@
         }
       }
     },
-    "divider": {
+    "border": {
       "value": {
         "color": "{border.container.edges.data_table.default}",
         "width": "{border_width.1}",
@@ -379,6 +379,16 @@
           "type": "spacing"
         }
       }
+    }
+  },
+  "data_table": {
+    "border": {
+      "value": {
+        "color": "{border.container.edges.data_table.default}",
+        "width": "{border_width.1}",
+        "style": "solid"
+      },
+      "type": "border"
     }
   },
   "avatar": {
