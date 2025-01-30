@@ -3,6 +3,10 @@ gux-table {
     box-sizing: border-box;
   }
 
+  border-color: var(--gse-ui-dataTableItems-divider-color);
+  border-style: var(--gse-ui-dataTableItems-divider-style);
+  border-width: var(--gse-ui-dataTableItems-divider-width);
+
   table {
     inline-size: 100%;
     white-space: nowrap;
@@ -96,6 +100,10 @@ gux-table {
 
       tr:nth-child(2n) td {
         background-color: var(--gse-ui-dataTableItems-cell-altBackgroundColor);
+      }
+
+      tr:last-child td {
+        border-block-end-width: 0;
       }
 
       tr:hover td,
