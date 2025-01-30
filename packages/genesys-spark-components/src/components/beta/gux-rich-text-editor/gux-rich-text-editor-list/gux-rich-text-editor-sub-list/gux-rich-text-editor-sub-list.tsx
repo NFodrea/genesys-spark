@@ -15,15 +15,16 @@ import {
   h,
   Method
 } from '@stencil/core';
+import { next, previous } from 'components/stable/gux-list/gux-list.service';
 
 @Component({
   tag: 'gux-rich-text-editor-sub-list',
   styleUrl: 'gux-rich-text-editor-sub-list.scss',
-  shadow: true
+  shadow: { delegatesFocus: true }
 })
 
 /**
- * @slot - collection of gux-rich-style-list-item
+ * @slot - collection of gux-rich-style-list-item elements.
  */
 export class GuxRichTextEditorSubList {
   private buttonElement: HTMLButtonElement;
@@ -51,12 +52,23 @@ export class GuxRichTextEditorSubList {
       case 'Enter':
         event.stopPropagation();
         this.focusOnSubList();
-        void this.guxFocus();
         break;
-
+      case 'ArrowUp':
+        if (!(this.root === event.target)) {
+          event.preventDefault();
+          event.stopPropagation();
+          previous(this.root, ['gux-rich-style-list-item']);
+        }
+        break;
+      case 'ArrowDown':
+        if (!(this.root === event.target)) {
+          event.preventDefault();
+          event.stopPropagation();
+          next(this.root, ['gux-rich-style-list-item']);
+        }
+        break;
       case 'ArrowRight':
         event.stopPropagation();
-
         this.show();
         this.focusOnSubList();
         break;
@@ -169,7 +181,7 @@ export class GuxRichTextEditorSubList {
       }).then(({ x, y }) => {
         Object.assign(this.subListElement.style, {
           left: `${x}px`,
-          top: `${y - 8}px`
+          top: `${y}px`
         });
       });
     }
@@ -184,8 +196,8 @@ export class GuxRichTextEditorSubList {
             'gux-sub-list-button': true,
             'gux-sub-list-button-active': this.isShown
           }}
-          role="listitem"
           tabIndex={-1}
+          role="listitem"
           ref={el => (this.buttonElement = el)}
           aria-haspopup="true"
           aria-expanded={this.isShown.toString()}

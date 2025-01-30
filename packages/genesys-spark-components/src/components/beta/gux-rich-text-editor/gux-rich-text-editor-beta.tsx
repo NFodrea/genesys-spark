@@ -76,7 +76,7 @@ export class GuxRichTextEditor {
     );
     // A group of gux-rich-text-editor-action-group.
     const children = Array.from(container.children);
-    // Calculate the total width of all children excluding hidden.(gux-rich-text-editor-action-group)
+    // Calculate the total width of all children excluding hidden (gux-rich-text-editor-action-groups).
     const totalWidth = children
       .filter(child => !child.classList.contains('gux-hidden'))
       .reduce((sum, child) => sum + child.clientWidth, 0);
@@ -145,23 +145,36 @@ export class GuxRichTextEditor {
   }
 
   private renderTextEditorMenu(): JSX.Element {
-    // Merge the action groups into one array.
     const allActions = [
-      ...this.textStylingActions.map(actionItem => actionItem),
-      ...this.typographicalEmphasisActions.map(actionElement => actionElement),
-      ...this.listsAndIndentationActions.map(actionElement => actionElement),
-      ...this.insertingActions.map(actionElement => actionElement)
+      ...this.textStylingActions,
+      ...this.typographicalEmphasisActions,
+      ...this.listsAndIndentationActions,
+      ...this.insertingActions
     ];
 
-    // Extract the rich style actions from the allActions array.
-    const richStyleActions = allActions
-      .filter(action => action.startsWith('rich-style-'))
-      .map(action => action.slice('rich-style-'.length));
+    // Prefixes to identify in the actions array so these can be used for sub-lists.
+    const richStylePrefix = 'rich-style-';
+    const highlightPrefix = 'highlight-';
+
+    const filteredActions: string[] = [];
+    // Arrays to store rich style and highlight actions.
+    const richStyleActions: string[] = [];
+    const highlightActions: string[] = [];
+    // Filter out the rich style and highlight actions from the filtered array an assign to their own array.
+    for (const action of allActions) {
+      if (action.startsWith(richStylePrefix)) {
+        richStyleActions.push(action.slice(richStylePrefix.length));
+      } else if (action.startsWith(highlightPrefix)) {
+        highlightActions.push(action.slice(highlightPrefix.length));
+      } else {
+        filteredActions.push(action);
+      }
+    }
 
     if (allActions.length > 0) {
       return (
         <gux-rich-text-editor-action-rich-style value="menu" is-menu="true">
-          {allActions.map((action, index) => {
+          {filteredActions.map((action, index) => {
             return (
               <gux-rich-style-list-item key={index} value={action}>
                 {this.i18n(action) || action}
@@ -174,6 +187,17 @@ export class GuxRichTextEditor {
                 return (
                   <gux-rich-style-list-item key={index} value={action}>
                     {action}
+                  </gux-rich-style-list-item>
+                );
+              })}
+            </gux-rich-text-editor-sub-list>
+          )}
+          {highlightActions.length > 0 && (
+            <gux-rich-text-editor-sub-list label={this.i18n('textHighlight')}>
+              {highlightActions.map((action, index) => {
+                return (
+                  <gux-rich-style-list-item key={index} value={action}>
+                    {this.i18n(action) || action}
                   </gux-rich-style-list-item>
                 );
               })}

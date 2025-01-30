@@ -43,25 +43,6 @@ export function returnActionTypeIcon(
   }
 }
 
-export function getActionsFromGroups(
-  selector: string,
-  hiddenClass: string
-): string[] {
-  const actionGroup = this.root.querySelector(selector);
-
-  if (actionGroup && actionGroup.classList.contains(hiddenClass)) {
-    return Array.from(
-      actionGroup.querySelectorAll('gux-rich-text-editor-action')
-    ).map(actionElement =>
-      (actionElement as HTMLGuxRichTextEditorActionElement).getAttribute(
-        'action'
-      )
-    );
-  }
-
-  return [];
-}
-
 export function getActionsFromGroup(
   root: HTMLElement,
   selector: string,
@@ -97,7 +78,7 @@ export function getActionsFromGroup(
         textHighlightListItems.forEach(item => {
           const highlight = (item as HTMLElement).getAttribute('highlight');
           if (highlight) {
-            actions.push(highlight);
+            actions.push(`highlight-${highlight}`);
           }
         });
       }
