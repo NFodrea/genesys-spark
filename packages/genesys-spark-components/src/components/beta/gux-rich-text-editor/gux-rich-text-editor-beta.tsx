@@ -5,7 +5,9 @@ import {
   Element,
   Prop,
   readTask,
-  State
+  State,
+  Event,
+  EventEmitter
 } from '@stencil/core';
 import { OnResize } from '@utils/decorator/on-resize';
 import { hasSlot } from '@utils/dom/has-slot';
@@ -48,6 +50,10 @@ export class GuxRichTextEditor {
 
   @State()
   insertingActions: string[] = [];
+
+  // This event is emitted when an action has been selected from the menu in the shadowDOM.
+  @Event({ composed: true })
+  guxToggleAction: EventEmitter<string>;
 
   @OnResize()
   checkResponsiveLayout(): void {
@@ -176,7 +182,11 @@ export class GuxRichTextEditor {
         <gux-rich-text-editor-action-rich-style value="menu" is-menu="true">
           {filteredActions.map((action, index) => {
             return (
-              <gux-rich-style-list-item key={index} value={action}>
+              <gux-rich-style-list-item
+                onClick={() => this.guxToggleAction.emit(action)}
+                key={index}
+                value={action}
+              >
                 {this.i18n(action) || action}
               </gux-rich-style-list-item>
             );
@@ -185,7 +195,11 @@ export class GuxRichTextEditor {
             <gux-rich-text-editor-sub-list label={this.i18n('richStyle')}>
               {richStyleActions.map((action, index) => {
                 return (
-                  <gux-rich-style-list-item key={index} value={action}>
+                  <gux-rich-style-list-item
+                    onClick={() => this.guxToggleAction.emit(action)}
+                    key={index}
+                    value={action}
+                  >
                     {action}
                   </gux-rich-style-list-item>
                 );
@@ -196,7 +210,11 @@ export class GuxRichTextEditor {
             <gux-rich-text-editor-sub-list label={this.i18n('textHighlight')}>
               {highlightActions.map((action, index) => {
                 return (
-                  <gux-rich-style-list-item key={index} value={action}>
+                  <gux-rich-style-list-item
+                    onClick={() => this.guxToggleAction.emit(action)}
+                    key={index}
+                    value={action}
+                  >
                     {this.i18n(action) || action}
                   </gux-rich-style-list-item>
                 );

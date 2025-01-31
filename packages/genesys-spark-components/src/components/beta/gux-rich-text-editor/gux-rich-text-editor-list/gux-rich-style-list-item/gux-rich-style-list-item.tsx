@@ -28,7 +28,8 @@ export class GuxRichStyleListItem {
   @Prop()
   disabled: boolean = false;
 
-  @Prop()
+  // Reflect is used here so we can access the value in the light DOM for executing actions.
+  @Prop({ reflect: true })
   value: string;
 
   @Method()

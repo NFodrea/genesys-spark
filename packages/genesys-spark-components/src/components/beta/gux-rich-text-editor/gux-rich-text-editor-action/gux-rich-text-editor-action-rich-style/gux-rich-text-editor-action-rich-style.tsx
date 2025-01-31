@@ -224,7 +224,11 @@ export class GuxRichTextEditorActionRichStyle {
     if (!this.disabled && !this.expanded) {
       return (
         <gux-tooltip-beta>
-          <div slot="content">{this.i18n('richStyle')}</div>
+          <div slot="content">
+            {this.isMenu
+              ? this.i18n('additionalActions')
+              : this.i18n('richStyle')}
+          </div>
         </gux-tooltip-beta>
       ) as JSX.Element;
     }

@@ -12,6 +12,13 @@
 | `disabled` | `disabled` |             | `boolean` | `false` |
 
 
+## Events
+
+| Event             | Description | Type                  |
+| ----------------- | ----------- | --------------------- |
+| `guxToggleAction` |             | `CustomEvent<string>` |
+
+
 ## Slots
 
 | Slot                       | Description                             |
