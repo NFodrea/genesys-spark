@@ -44,7 +44,7 @@ export function returnActionTypeIcon(
 }
 
 /**
- * Extracts an attribute from a single element and adds it to the actions array.
+ * Extracts an attribute from a action and adds it to the actions array.
  */
 function addAction(actions: string[], element: Element, attribute: string) {
   const value = (element as HTMLElement).getAttribute(attribute);
@@ -100,7 +100,6 @@ export function getActionsFromGroup(
         'highlight'
       );
     }
-
     return actions;
   }, []);
 }
