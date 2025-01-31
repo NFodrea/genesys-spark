@@ -194,14 +194,15 @@ export class GuxRichTextEditor {
           {richStyleActions.length > 0 && (
             <gux-rich-text-editor-sub-list label={this.i18n('richStyle')}>
               {richStyleActions.map((action, index) => {
+                // Remove the html tags from the text content. HTML tags are needed for the innerHTML attribute set so the styles are mimicked.
+                const actionText = action.replace(/<\/?[^>]+(>|$)/g, '');
                 return (
                   <gux-rich-style-list-item
                     onClick={() => this.guxToggleAction.emit(action)}
                     key={index}
-                    value={action}
-                  >
-                    {action}
-                  </gux-rich-style-list-item>
+                    value={actionText}
+                    innerHTML={action}
+                  ></gux-rich-style-list-item>
                 );
               })}
             </gux-rich-text-editor-sub-list>

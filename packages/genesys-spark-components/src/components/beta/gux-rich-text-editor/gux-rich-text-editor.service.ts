@@ -64,7 +64,7 @@ export function getActionsFromGroup(
           'gux-rich-style-list-item'
         );
         styleListItems.forEach(item => {
-          const value = (item as HTMLElement).innerText;
+          const value = (item as HTMLElement).innerHTML;
           if (value) {
             actions.push(`rich-style-${value}`);
           }
