@@ -638,10 +638,10 @@ const actionsMenu = {
     undo: () => editor.chain().focus().undo().run(),
     redo: () => editor.chain().focus().redo().run(),
     //Heading Styles
-    'heading1': () => editor.chain().focus().toggleHeading({ level: 1 }).run(),
-    'heading2': () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
-    'heading3': () => editor.chain().focus().toggleHeading({ level: 3 }).run(),
-    'paragraph': () => editor.commands.setParagraph(),
+    'Heading 1': () => editor.chain().focus().toggleHeading({ level: 1 }).run(),
+    'Heading 2': () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
+    'Heading 3': () => editor.chain().focus().toggleHeading({ level: 3 }).run(),
+    'Paragraph': () => editor.commands.setParagraph(),
     // Highlight Colors
     'orange': () => editor.chain().focus().toggleHighlight({ color: '#FF8F76' }).run(),
     'coral': () => editor.chain().focus().toggleHighlight({ color: '#FFBEC9' }).run(),

@@ -198,7 +198,7 @@ export class GuxRichTextEditor {
                 const actionText = action.replace(/<\/?[^>]+(>|$)/g, '');
                 return (
                   <gux-rich-style-list-item
-                    onClick={() => this.guxToggleAction.emit(action)}
+                    onClick={() => this.guxToggleAction.emit(actionText)}
                     key={index}
                     value={actionText}
                     innerHTML={action}
