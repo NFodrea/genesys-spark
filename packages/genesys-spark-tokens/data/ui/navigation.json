@@ -113,7 +113,7 @@
           "type": "sizing"
         },
         "width": {
-          "value": "{size.3xl}",
+          "value": "{form_control.field.text_input.lg.height}",
           "type": "sizing"
         },
         "margin_right": {
@@ -357,12 +357,7 @@
   },
   "global_nav": {
     "text": {
-      "value": {
-        "fontFamily": "{font_family.roboto}",
-        "lineHeight": "{line_height.2xs}",
-        "fontSize": "{font_size.xs}",
-        "fontWeight": "{font_weight.bold}"
-      },
+      "value": "{body.sm.bold}",
       "type": "typography"
     },
     "toggle": {
@@ -405,7 +400,7 @@
     },
     "menu_option": {
       "height": {
-        "value": "{size.lg}",
+        "value": "{interactive.md.size}",
         "type": "sizing"
       },
       "width": {
@@ -463,7 +458,7 @@
         "type": "borderRadius"
       },
       "disable_opacity": {
-        "value": "0.5",
+        "value": "{opacity.disabled}",
         "type": "opacity"
       },
       "selected_panel": {
@@ -526,7 +521,7 @@
     },
     "button_return": {
       "height": {
-        "value": "{size.2xl}",
+        "value": "{container.xl.height}",
         "type": "sizing"
       },
       "width": {
@@ -538,7 +533,7 @@
         "type": "spacing"
       },
       "gap": {
-        "value": "{spacing.2xs}",
+        "value": "{container.md.gap}",
         "type": "spacing"
       }
     },
@@ -562,7 +557,7 @@
     },
     "bar": {
       "padding": {
-        "value": "{spacing.3xs} {spacing.2xs}",
+        "value": "{container.xs.padding} {container.sm.padding}",
         "type": "spacing"
       }
     },
@@ -589,7 +584,7 @@
         "closed": {
           "buttons": {
             "gap": {
-              "value": "{global_nav.side_menu.top.open.buttons.gap}",
+              "value": "{container.sm.gap}",
               "type": "spacing"
             }
           },
@@ -617,12 +612,12 @@
     "top_bar": {
       "items": {
         "gap": {
-          "value": "{spacing.xs}",
+          "value": "{container.lg.gap}",
           "type": "spacing"
         }
       },
       "padding": {
-        "value": "{spacing.xs} {spacing.md}",
+        "value": "{container.md.padding} {container.lg.padding}",
         "type": "spacing"
       },
       "height": {
